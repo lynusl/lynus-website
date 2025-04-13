@@ -1,6 +1,5 @@
 import { clsx } from 'clsx';
-
-const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+import { notes } from '@/app/utils/guitar/constants';
 
 function getNotesForString(firstNote: string, frets: number = 12) {
     let idx: number = notes.findIndex(note => note===firstNote)
