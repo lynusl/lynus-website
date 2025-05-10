@@ -4,18 +4,14 @@ import { clsx } from 'clsx';
 import { notes } from '@/app/utils/guitar/constants';
 
 import { SelectedScaleContext } from '@/app/guitar/interactive';
-
-
-function getNotesForString(firstNote: string, frets: number = 12) {
-    let idx: number = notes.findIndex(note => note===firstNote)
-    return Array.from({length: frets}, (v, i) => notes.at((idx + i) % 12)!);
-}
+import { PitchClass } from '@/app/utils/guitar/constants';
+import { getNotesForString } from '@/app/guitar/client-actions';
 
 // const HeaderFret = ({ note, } : {note:string}) => {
 //     return <CellComponent note={note} active={true}/>
 // }
 
-const CellComponent = ({ note, active } : {note: string; active?:boolean}) => {
+const CellComponent = ({ note, active } : {note: PitchClass; active?:boolean}) => {
     const {scaleId: scaleState, setScaleId: setButtonId} = useContext(SelectedScaleContext);
     
     return(
@@ -27,13 +23,13 @@ const CellComponent = ({ note, active } : {note: string; active?:boolean}) => {
             },
         )}
         >
-            {note}
+            {PitchClass[note]}
         </button>
     )
 }
 
 
-const StringComponent = ({ rows, firstNote } : {rows: number; firstNote: string}) => {
+const StringComponent = ({ rows, firstNote } : {rows: number; firstNote: PitchClass}) => {
     return(
         <div className="grow h-full flex flex-col gap-2 place-items-stretch">
             {
@@ -47,12 +43,12 @@ const StringComponent = ({ rows, firstNote } : {rows: number; firstNote: string}
 
 
 export default function Fretboard(
-    { rows, tuning,}: {rows: number; tuning: string[]}
+    { rows, tuning,}: {rows: number; tuning: PitchClass[]}
 ) {
     return(
         <div className="h-full grow place-items-center flex flex-row gap-2 p-4">
             {
-                tuning.map((note: string, idx) => (
+                tuning.map((note: PitchClass, idx) => (
                     <StringComponent key={idx} rows={rows} firstNote={note}/>
                 ))
             }

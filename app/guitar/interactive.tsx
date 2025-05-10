@@ -5,11 +5,11 @@ import Dashboard from "@/app/ui/guitar/dashboard"
 import Image from "next/image"
 import homura from "@/public/homura2.png"
 import { createContext, Dispatch, SetStateAction, useState } from 'react';
-import { getKey } from "./actions"
+import { PitchClass, defaultTuning } from "@/app/utils/guitar/constants"
 
 interface ScaleState {
-    tonic: string;
-    notes: string[];
+    tonic: PitchClass;
+    notes: PitchClass[];
 }
 
 
@@ -20,43 +20,17 @@ type SelectedScaleContextType = {
 
 export const SelectedScaleContext = createContext<SelectedScaleContextType>({
     scaleId: {
-        tonic: "",
-        notes: [""]
+        tonic: PitchClass.C,
+        notes: []
     },
     setScaleId: ()=>{}
 });
 
-// enum ScaleActionKind {
-//     UPDATE = 'UPDATE'
-// }
-
-// interface ScaleAction {
-//     type: ScaleActionKind;
-//     payload: string;
-// }
-
-interface ScaleState {
-    tonic: string;
-    notes: string[];
-}
-
-
-// function scaleReducer(state: ScaleState, action: ScaleAction) {
-//     const { type, payload } = action;
-//     switch (type) {
-//         case ScaleActionKind.UPDATE:
-//             return {
-//                 tonic: payload,
-//                 notes: getKey(payload)
-//             }
-//         default:
-//             return state;
-//     }
-// }
-
-
 export default function InteractiveSpace() {
-    const [selectedScale, setSelectedScale] = useState(-1);
+    const [selectedScale, setSelectedScale] = useState<ScaleState>({
+        tonic: PitchClass.C,
+        notes: []
+    });
 
     return(
         <SelectedScaleContext.Provider value={{scaleId: selectedScale, setScaleId: setSelectedScale}}>
@@ -69,7 +43,7 @@ export default function InteractiveSpace() {
                     <Dashboard></Dashboard>
                 </div>
                 <div className="flex-1/3 outline outline-blue-500">
-                    <Fretboard rows={12} tuning={['E', 'A', 'D', 'G', 'B', 'E']}/>
+                    <Fretboard rows={12} tuning={defaultTuning}/>
                 </div>
             </div>
         </SelectedScaleContext.Provider>

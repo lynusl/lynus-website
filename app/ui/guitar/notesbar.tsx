@@ -1,13 +1,14 @@
 'use client'
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
-import { notes } from '@/app/utils/guitar/constants';
+import { notes, PitchClass, ScaleIntervalNames, ScaleIntervals } from '@/app/utils/guitar/constants';
 import clsx from 'clsx';
-import { getKey } from '@/app/guitar/actions';
+// import { getKey } from '@/app/guitar/actions';
+import { getScale } from '@/app/guitar/client-actions';
 
 import { SelectedScaleContext } from '@/app/guitar/interactive';
 
 
-const NoteComponent = ({note, id} : {note:string, id:number}) => {
+const NoteComponent = ({note, id} : {note: PitchClass, id:number}) => {
     const {scaleId: scaleState, setScaleId: setScaleState} = useContext(SelectedScaleContext);
 
     // return(
@@ -25,13 +26,13 @@ const NoteComponent = ({note, id} : {note:string, id:number}) => {
     // )
 
     return(
-        <button onClick={async () => {setScaleState({"tonic":note, "notes":await getKey(note)})}} className={clsx(
+        <button onClick={async () => {setScaleState({"tonic": note, "notes": getScale(note, "MAJOR")})}} className={clsx(
             "flex-1 text-center content-center size-fit self-center aspect-square rounded-full text-xl select-none cursor-pointer",
             {
                 "bg-blue-500" : scaleState.tonic === note,
                 "bg-gray-400" : scaleState.tonic !== note
             }
-        )}>{note}</button>
+        )}>{PitchClass[note]}</button>
     )
 }
 
