@@ -13,17 +13,27 @@ import { getNotesForString } from '@/app/guitar/client-actions';
 
 const CellComponent = ({ note, active } : {note: PitchClass; active?:boolean}) => {
     const {scaleId: scaleState, setScaleId: setButtonId} = useContext(SelectedScaleContext);
-    
+    const [selected, setSelected] = useState(false);
+
     return(
-        <button className={clsx(
-            "basis-full grow-0 text-sm text-center align-middle size-sm first:text-amber-300 border transition-colors", 
+        <button onClick={async () => {setSelected(!selected)}}
+            className={clsx(
+            "basis-full grow-0 text-center align-middle size-sm transition-colors", 
             {
                 // tone is in the scale
                 'bg-gray-700' : scaleState.tonic != note && scaleState.notes && scaleState.notes.includes(note),
 
                 // tone is the root of the scale
-                'bg-blue-900' : scaleState.tonic === note
-            },
+                'bg-blue-900' : scaleState.tonic === note,
+            }, 
+            {
+                // selected
+                'text-amber-700 font-bold text-lg' : selected,
+
+                // not selected
+                'text-sm first:text-amber-300' : !selected,
+
+            }
         )}
         >
             {PitchClass[note]}
