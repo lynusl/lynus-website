@@ -16,10 +16,13 @@ const CellComponent = ({ note, active } : {note: PitchClass; active?:boolean}) =
     
     return(
         <button className={clsx(
-            "outline flex-1 text-sm text-center align-middle rounded-md size-sm first:text-amber-300", 
+            "basis-full grow-0 text-sm text-center align-middle size-sm first:text-amber-300 border transition-colors", 
             {
+                // tone is in the scale
                 'bg-gray-700' : scaleState.tonic != note && scaleState.notes && scaleState.notes.includes(note),
-                'bg-gray-800' : scaleState.tonic === note
+
+                // tone is the root of the scale
+                'bg-blue-900' : scaleState.tonic === note
             },
         )}
         >
@@ -31,7 +34,7 @@ const CellComponent = ({ note, active } : {note: PitchClass; active?:boolean}) =
 
 const StringComponent = ({ rows, firstNote } : {rows: number; firstNote: PitchClass}) => {
     return(
-        <div className="grow h-full flex flex-col gap-2 place-items-stretch">
+        <div className="basis-full grow-0 h-full flex flex-col place-items-stretch">
             {
                 getNotesForString(firstNote, rows).map((note, idx) => (
                     <CellComponent key={idx} note={note}/>
@@ -46,7 +49,7 @@ export default function Fretboard(
     { rows, tuning,}: {rows: number; tuning: PitchClass[]}
 ) {
     return(
-        <div className="h-full grow place-items-center flex flex-row gap-2 p-4">
+        <div className="h-full grow place-items-center flex flex-row p-4">
             {
                 tuning.map((note: PitchClass, idx) => (
                     <StringComponent key={idx} rows={rows} firstNote={note}/>
