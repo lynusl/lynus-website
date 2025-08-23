@@ -1,6 +1,6 @@
 'use client'
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
-import { notes, PitchClass, ScaleIntervalNames, ScaleIntervals } from '@/app/utils/guitar/constants';
+import { PitchClass, PitchClassStrings } from '@/app/utils/guitar/constants';
 import clsx from 'clsx';
 // import { getKey } from '@/app/guitar/actions';
 import { getScale } from '@/app/guitar/client-actions';
@@ -26,13 +26,13 @@ const NoteComponent = ({note, id} : {note: PitchClass, id:number}) => {
     // )
 
     return(
-        <button onClick={async () => {setScaleState({"tonic": note, "notes": getScale(note, "MAJOR")})}} className={clsx(
+        <button onClick={async () => {setScaleState({"tonic": note})}} className={clsx(
             "flex-1 text-center content-center size-fit self-center aspect-square rounded-full text-xl select-none cursor-pointer",
             {
                 "bg-blue-500" : scaleState.tonic === note,
                 "bg-gray-400" : scaleState.tonic !== note
             }
-        )}>{PitchClass[note]}</button>
+        )}>{PitchClassStrings[note]}</button>
     )
 }
 
@@ -41,8 +41,8 @@ export default function NotesBar() {
     return(
         <div className='flex flex-row gap-2 size-full place-items-stretch'>
             {
-                notes.map((note, idx) => (
-                    <NoteComponent key={idx} note={note} id={idx}/>
+                PitchClassStrings.map((pitch, idx) => (
+                    <NoteComponent key={pitch} note={idx} id={idx}/>
                 ))
             }
         </div>
