@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -11,7 +12,9 @@ export default function Home() {
           a website by lynus
         </h3>
 
-        <nav> check out my <a href="/guitar" className="underline text-sky-500 hover:text-sky-700 visited:text-purple-600">guitar app</a> </nav>
+        <nav> 
+          check out my <Link href="/guitar" className="underline text-sky-500 hover:text-sky-700 visited:text-purple-600">guitar app</Link> 
+          </nav>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         
