@@ -86,4 +86,27 @@ export const ScaleIntervals = {
     MAJOR_TRIAD: [4,3],
 }
 
-export type ScaleIntervalNames = keyof typeof ScaleIntervals
+export const ScaleIntervalNames = Object.keys(ScaleIntervals) as (keyof typeof ScaleIntervals)[]
+
+export const Intervals = {
+    MINOR_THIRD: 3,
+    MAJOR_THIRD: 4,
+    DIMINISHED_FIFTH: 6,
+    PERFECT_FIFTH: 7,
+    AUGMENTED_FIFTH: 8,
+    MINOR_SEVENTH: 10,
+    MAJOR_SEVENTH: 11
+}
+
+export const ChordShapes = {
+    MAJOR_TRIAD: [Intervals.MAJOR_THIRD, Intervals.PERFECT_FIFTH],
+    MINOR_TRIAD: [Intervals.MINOR_THIRD, Intervals.PERFECT_FIFTH],
+    AUGMENTED_TRIAD: [Intervals.MAJOR_THIRD, Intervals.AUGMENTED_FIFTH],
+    DIMINISHED_TRIAD: [Intervals.MINOR_THIRD, Intervals.DIMINISHED_FIFTH],
+    DOMINANT_SEVENTH: [Intervals.MAJOR_THIRD, Intervals.PERFECT_FIFTH, Intervals.MINOR_SEVENTH],
+    MINOR_SEVENTH: [Intervals.MINOR_THIRD, Intervals.PERFECT_FIFTH, Intervals.MINOR_SEVENTH],
+    MAJOR_SEVENTH: [Intervals.MAJOR_THIRD, Intervals.PERFECT_FIFTH, Intervals.MAJOR_SEVENTH],
+}
+
+export const ChordShapeNames = Object.keys(ChordShapes) as (keyof typeof ChordShapes)[]
+

@@ -1,6 +1,6 @@
-import { PitchClass, ScaleIntervals, ScaleIntervalNames, Note, createNote } from "@/app/utils/guitar/constants"
+import { PitchClass, Note, createNote, ScaleIntervals } from "@/app/utils/guitar/constants"
 
-export function getScale(tonic: PitchClass, scaleType: ScaleIntervalNames) : PitchClass[] {
+export function getScale(tonic: PitchClass, scaleType: keyof typeof ScaleIntervals) : PitchClass[] {
     // get running sum of intervals (with base of tonic)
     // https://stackoverflow.com/questions/20477177/creating-an-array-of-cumulative-sum-in-javascript
     let sum = 0
