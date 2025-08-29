@@ -22,7 +22,7 @@ const CellComponent = ({ note, active, action } : {note: Note; active?:boolean; 
         <button 
             onClick={action}
             className={clsx(
-            "basis-full grow-0 text-center align-middle transition-colors first:border-b-4 first:border-amber-400", 
+            "basis-full grow-0 text-center align-middle transition-colors first:border-b-4 first:border-amber-400 hover:animate-pulse", 
             {
                 // tone is in the scale
                 'bg-gray-700' : scaleState.tonic != note.pitchClass && notes && notes.includes(note.pitchClass),

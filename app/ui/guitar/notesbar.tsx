@@ -30,7 +30,7 @@ const NoteComponent = ({note, id} : {note: PitchClass, id:number}) => {
             "flex-1 text-center content-center size-fit self-center aspect-square rounded-full text-xl select-none cursor-pointer",
             {
                 "bg-blue-500" : scaleState.tonic === note,
-                "bg-gray-400" : scaleState.tonic !== note
+                "bg-gray-400 text-gray-800" : scaleState.tonic !== note
             }
         )}>{PitchClassStrings[note]}</button>
     )
