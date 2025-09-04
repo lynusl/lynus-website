@@ -82,7 +82,10 @@ export const defaultTuning = [
 
 export const ScaleIntervals = {
     MAJOR: [2,2,1,2,2,2],
-    MINOR: [2,1,2,2,1,2],
+    NATURAL_MINOR: [2,1,2,2,1,2],
+    HARMONIC_MINOR: [2,1,2,2,1,3],
+    MELODIC_MINOR: [2,1,2,2,2,1],
+
     MAJOR_TRIAD: [4,3],
 }
 
@@ -98,7 +101,7 @@ export const Intervals = {
     MAJOR_SEVENTH: 11
 }
 
-export const ChordShapes = {
+export const ChordTypes = {
     MAJOR_TRIAD: [Intervals.MAJOR_THIRD, Intervals.PERFECT_FIFTH],
     MINOR_TRIAD: [Intervals.MINOR_THIRD, Intervals.PERFECT_FIFTH],
     AUGMENTED_TRIAD: [Intervals.MAJOR_THIRD, Intervals.AUGMENTED_FIFTH],
@@ -108,5 +111,5 @@ export const ChordShapes = {
     MAJOR_SEVENTH: [Intervals.MAJOR_THIRD, Intervals.PERFECT_FIFTH, Intervals.MAJOR_SEVENTH],
 }
 
-export const ChordShapeNames = Object.keys(ChordShapes) as (keyof typeof ChordShapes)[]
+export const ChordTypeNames = Object.keys(ChordTypes) as (keyof typeof ChordTypes)[]
 

@@ -1,4 +1,4 @@
-import { PitchClass, Note, createNote, ScaleIntervals } from "@/app/utils/guitar/constants"
+import { PitchClass, Note, createNote, ScaleIntervals, ChordTypes } from "@/app/utils/guitar/constants"
 
 export function getScale(tonic: PitchClass, scaleType: keyof typeof ScaleIntervals) : PitchClass[] {
     // get running sum of intervals (with base of tonic)
@@ -8,6 +8,14 @@ export function getScale(tonic: PitchClass, scaleType: keyof typeof ScaleInterva
     return Array.from(intervals, (v, i) => (tonic + v) % 12)
 }
 
+export function getPitchClassesStartingFrom(start: PitchClass) : PitchClass[] {
+    return Array.from({length: 13}, (v, i) => (start + i) % 12)
+}
+
 export function getNotesForString(firstNote: Note, frets: number = 12) : Note[] {
     return Array.from({length: frets}, (v, i) => createNote(firstNote.value + i))
+}
+
+export function getChordPitchClasses(tonic: PitchClass, chordType: keyof typeof ChordTypes) : PitchClass[] {
+    return Array.from(ChordTypes[chordType], (v) => (tonic + v) % 12)
 }

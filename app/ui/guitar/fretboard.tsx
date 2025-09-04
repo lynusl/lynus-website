@@ -6,7 +6,7 @@ import { Fret, Note } from '@/app/utils/guitar/constants';
 import { SelectedScaleContext } from '@/app/guitar/interactive';
 import { PitchClass } from '@/app/utils/guitar/constants';
 import { getNotesForString, getScale } from '@/app/guitar/client-actions';
-import { fretboardAction, fretboardActionType, SelectedFretsDispatchContext, SelectedFretState } from "@/app/guitar/interactive-context";
+import { FretboardAction, FretboardActionType, HighlightedPitchClassesContext, SelectedFretsDispatchContext, SelectedFretsState } from "@/app/guitar/interactive-context";
 
 
 // const HeaderFret = ({ note, } : {note:string}) => {
@@ -16,7 +16,8 @@ import { fretboardAction, fretboardActionType, SelectedFretsDispatchContext, Sel
 const CellComponent = ({ note, active, action } : {note: Note; active?:boolean; action: () => void}) => {
     const {scaleId: scaleState, setScaleId: setButtonId} = useContext(SelectedScaleContext);
 
-    const notes = getScale(scaleState.tonic, "MAJOR_TRIAD")
+    //TODO: refactor to leverage selected chord instead
+    const notes = useContext(HighlightedPitchClassesContext)
 
     return(
         <button 
@@ -77,7 +78,7 @@ export default function Fretboard(
     {
         rows: number; 
         tuning: Note[]; 
-        selectedFrets: SelectedFretState
+        selectedFrets: SelectedFretsState
     }
 ) {
 
@@ -90,7 +91,7 @@ export default function Fretboard(
                 tuning.map((note: Note, idx) => (
                     <StringComponent key={idx} rows={rows} 
                     firstNote={note} selectedFret={selectedFrets[idx]}
-                    action={(fret: Fret | null) => dispatchSelectedFrets({actionType: fretboardActionType.CHANGE_STRING, stringId: idx, newFret: fret})}/>
+                    action={(fret: Fret | null) => dispatchSelectedFrets({actionType: FretboardActionType.CHANGE_STRING, stringId: idx, newFret: fret})}/>
                 ))
             }
         </div>
