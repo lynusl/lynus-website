@@ -65,6 +65,28 @@ export function SelectableNotesBar() {
     )
 }
 
+export function KeySelectionBar() {
+    const {scaleId: scaleState, setScaleId: setScaleState} = useContext(SelectedScaleContext);
+
+    return(
+        <div className='flex flex-row size-full justify-evenly'>
+            {
+                PitchClassStrings.map((pitch, idx) => (
+                    <button key={pitch} onClick={() => {
+                        setScaleState({"tonic": idx});
+                    }} className={clsx(
+                        "cursor-pointer flex-1 text-xl select-none",
+                        {
+                            "bg-blue-500" : scaleState.tonic === idx,
+                            "bg-gray-400 text-gray-800" : scaleState.tonic !== idx
+                        }
+                    )}>{pitch}</button>
+                ))
+            }
+        </div>
+    )
+}
+
 export function ScaleDisplayBar({scaleName} : {scaleName : keyof typeof ScaleIntervals}) {
     const {scaleId: scaleState} = useContext(SelectedScaleContext);
     const highlightedPitchClasses = useContext(HighlightedPitchClassesContext);
