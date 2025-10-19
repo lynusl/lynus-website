@@ -23,7 +23,7 @@ const CellComponent = ({ note, active, action } : {note: Note; active?:boolean; 
         <button 
             onClick={action}
             className={clsx(
-            "basis-full grow-0 text-center align-middle transition-colors first:border-b-4 first:border-amber-400 hover:animate-pulse", 
+            "grow-0 basis-full text-center align-middle transition-colors first:border-b-4 first:border-amber-400 hover:animate-pulse cursor-pointer", 
             {
                 // tone is in the scale
                 'bg-gray-700' : scaleState.tonic != note.pitchClass && notes && notes.includes(note.pitchClass),
@@ -59,7 +59,7 @@ const StringComponent = (
 
         
     return(
-        <div className="basis-full grow-0 h-full flex flex-col place-items-stretch">
+        <div className="flex-col flex basis-full grow-0 justify-stretch">
             {
                 getNotesForString(firstNote, rows).map((note, idx) => (
                     <CellComponent key={idx} note={note} 
@@ -72,6 +72,19 @@ const StringComponent = (
     )
 }
 
+const FretNumberColumn = ({rows} : {rows: number}) => {
+    return(
+        <div className="flex-col flex justify-stretch">
+            {
+                Array.from({length: rows}, (v, i) => (
+                    <div key={i} className="grow flex items-center justify-start text-gray-500 first:border-b-4 first:border-amber-400 cursor-default">
+                        {i}
+                    </div>
+                ))
+            }
+        </div>
+    )
+}
 
 export default function Fretboard(
     { rows, tuning, selectedFrets}: 
@@ -86,7 +99,8 @@ export default function Fretboard(
 
     // tuning and selected should have the same size
     return(
-        <div className="h-full grow place-items-center flex flex-row p-4">
+        <div className="h-full flex flex-row p-4">
+            <FretNumberColumn rows={rows}/>
             {
                 tuning.map((note: Note, idx) => (
                     <StringComponent key={idx} rows={rows} 

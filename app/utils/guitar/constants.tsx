@@ -113,3 +113,25 @@ export const ChordTypes = {
 
 export const ChordTypeNames = Object.keys(ChordTypes) as (keyof typeof ChordTypes)[]
 
+export const TriadTypesInMajor = [
+    ChordTypes.MAJOR_TRIAD, 
+    ChordTypes.MINOR_TRIAD, 
+    ChordTypes.MINOR_TRIAD, 
+    ChordTypes.MAJOR_TRIAD, 
+    ChordTypes.MAJOR_TRIAD, 
+    ChordTypes.MINOR_TRIAD, 
+    ChordTypes.DIMINISHED_TRIAD, 
+]
+
+export const TriadTypesInMinor = [
+    ChordTypes.MINOR_TRIAD, 
+    ChordTypes.DIMINISHED_TRIAD, 
+    ChordTypes.MAJOR_TRIAD, 
+    ChordTypes.MINOR_TRIAD, 
+    ChordTypes.MINOR_TRIAD, 
+    ChordTypes.MAJOR_TRIAD, 
+    ChordTypes.MAJOR_TRIAD, 
+]
+
+
+// TODO: Refactor to Dictionary + interface?
