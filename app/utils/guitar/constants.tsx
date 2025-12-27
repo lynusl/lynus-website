@@ -134,4 +134,4 @@ export const TriadTypesInMinor = [
 ]
 
 
-// TODO: Refactor to Dictionary + interface?
+// TODO: clean this file. maybe separate into Types and Constants?

@@ -5,7 +5,7 @@ export function getScale(tonic: PitchClass, scaleType: keyof typeof ScaleInterva
     // https://stackoverflow.com/questions/20477177/creating-an-array-of-cumulative-sum-in-javascript
     let sum = 0
     let intervals = ScaleIntervals[scaleType].map((sum = 0, n => sum += n))
-    return Array.from(intervals, (v, i) => (tonic + v) % 12)
+    return [tonic].concat(Array.from(intervals, (v, i) => (tonic + v) % 12))
 }
 
 export function getPitchClassesStartingFrom(start: PitchClass) : PitchClass[] {
