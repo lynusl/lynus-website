@@ -2,19 +2,24 @@
 
 import { getPitchClassesStartingFrom, getScale } from "@/app/guitar/client-actions";
 import { SelectedScaleContext } from "@/app/guitar/interactive";
-import { HighlightedPitchClassesContext, HighlightedPitchClassesDispatchContext } from "@/app/guitar/interactive-context";
-import { ScaleIntervalNames, ScaleIntervals, TriadTypesInMajor, TriadTypesInMinor, ChordTypes } from "@/app/utils/guitar/constants";
-import { Note, PitchClass, PitchClassStrings } from "@/app/utils/guitar/types"
+import { HighlightedPitchClassesActionType, HighlightedPitchClassesContext, HighlightedPitchClassesDispatchContext } from '@/app/guitar/interactive-context';
+import { ScaleIntervalNames, ScaleIntervals, TriadTypesInMajor, TriadTypesInMinor, } from "@/app/utils/guitar/constants";
+import { Note, PitchClass, PitchClassStrings, ChordTypes, Chord } from "@/app/utils/guitar/types"
 
 import { useContext } from "react";
 
 
-const ChordCell = ({root, row, col} : {root: PitchClass, row: number, col: number}) => {
+const ChordCell = ({chord, row, col} : {chord: Chord, row: number, col: number}) => {
+
+    const dispatchHighlightedPitchClasses = useContext(HighlightedPitchClassesDispatchContext);
 
     return(
          <button className="row-start-1 col-span-1"
-         style={{ gridColumnStart: col, gridRowStart: row }}>
-            {PitchClassStrings[root]}
+         style={{ gridColumnStart: col, gridRowStart: row }}
+         onClick={ () => {
+            dispatchHighlightedPitchClasses({actionType:HighlightedPitchClassesActionType.SET, newState:chord.getPitchClassesWithRoot()});
+         } }>
+            {chord.getChordSymbol()}
         </button>
     )
 }
@@ -34,7 +39,7 @@ export default function ChordPalette() {
         {    
             majorRoots.map((pitch, idx) => (
                 <ChordCell key={`${scaleState.tonic}_major_${idx}`} 
-                    root={pitch}
+                    chord={new Chord(pitch, TriadTypesInMajor[idx])}
                     row={1}
                     col={getPitchClassesStartingFrom(scaleState.tonic).indexOf(pitch) + 1} />
             ))
@@ -42,7 +47,7 @@ export default function ChordPalette() {
         {
             minorRoots.map((pitch, idx) => (
                 <ChordCell key={`${scaleState.tonic}_minor_${idx}`} 
-                    root={pitch}
+                    chord={new Chord(pitch, TriadTypesInMinor[idx])}
                     row={2}
                     col={getPitchClassesStartingFrom(scaleState.tonic).indexOf(pitch) + 1} />
             ))

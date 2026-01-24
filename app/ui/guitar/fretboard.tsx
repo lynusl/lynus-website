@@ -29,7 +29,7 @@ const CellComponent = ({ note, active, action } : {note: Note; active?:boolean; 
                 'bg-gray-700' : scaleState.tonic != note.pitchClass && notes && notes.includes(note.pitchClass),
 
                 // tone is the root of the scale
-                'bg-blue-900' : scaleState.tonic === note.pitchClass,
+                'bg-blue-900' : scaleState.tonic === note.pitchClass && notes && notes.includes(note.pitchClass),
             }, 
             {
                 // selected

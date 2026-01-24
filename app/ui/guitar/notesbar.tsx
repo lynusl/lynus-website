@@ -112,7 +112,7 @@ export function ScaleDisplayBar({scaleName} : {scaleName : keyof typeof ScaleInt
                     className={clsx(
                         "flex-1 content-center size-fit aspect-square text-xl select-none enabled:cursor-pointer disabled:cursor-not-allowed",
                         {
-                            "bg-blue-500" : scaleState.tonic === pitch,
+                            "text-blue-500" : scaleState.tonic === pitch,
                             "text-white" : scaleState.tonic != pitch && scalePitches.includes(pitch),
                             "opacity-25" : scaleState.tonic !== pitch && !scalePitches.includes(pitch)
                         },

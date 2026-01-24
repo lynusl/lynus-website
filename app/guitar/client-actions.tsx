@@ -1,5 +1,5 @@
-import { ScaleIntervals, ChordTypes } from "@/app/utils/guitar/constants"
-import { Note, PitchClass, createNote } from "@/app/utils/guitar/types"
+import { ScaleIntervals } from "@/app/utils/guitar/constants"
+import { Note, PitchClass, createNote, ChordTypes } from "@/app/utils/guitar/types"
 
 
 export function getScale(tonic: PitchClass, scaleType: keyof typeof ScaleIntervals) : PitchClass[] {
