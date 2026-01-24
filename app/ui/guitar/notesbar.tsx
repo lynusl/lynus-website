@@ -1,6 +1,8 @@
 'use client'
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
-import { PitchClass, PitchClassStrings, ScaleIntervals} from '@/app/utils/guitar/constants';
+import { ScaleIntervals} from '@/app/utils/guitar/constants';
+import { PitchClass, PitchClassStrings } from "@/app/utils/guitar/types"
+
 import clsx from 'clsx';
 // import { getKey } from '@/app/guitar/actions';
 import { getScale, getPitchClassesStartingFrom, getChordPitchClasses } from '@/app/guitar/client-actions';

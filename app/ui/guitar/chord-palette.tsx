@@ -3,7 +3,9 @@
 import { getPitchClassesStartingFrom, getScale } from "@/app/guitar/client-actions";
 import { SelectedScaleContext } from "@/app/guitar/interactive";
 import { HighlightedPitchClassesContext, HighlightedPitchClassesDispatchContext } from "@/app/guitar/interactive-context";
-import { PitchClass, PitchClassStrings, ScaleIntervalNames, ScaleIntervals, TriadTypesInMajor, TriadTypesInMinor, ChordTypes } from "@/app/utils/guitar/constants";
+import { ScaleIntervalNames, ScaleIntervals, TriadTypesInMajor, TriadTypesInMinor, ChordTypes } from "@/app/utils/guitar/constants";
+import { Note, PitchClass, PitchClassStrings } from "@/app/utils/guitar/types"
+
 import { useContext } from "react";
 
 

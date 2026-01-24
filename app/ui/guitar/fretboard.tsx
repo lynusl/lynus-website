@@ -1,10 +1,10 @@
 'use client'
 import { ActionDispatch, createContext, useContext, useState } from 'react';
 import { clsx } from 'clsx';
-import { Fret, Note } from '@/app/utils/guitar/constants';
+import { Fret, Note, PitchClass } from "@/app/utils/guitar/types"
+
 
 import { SelectedScaleContext } from '@/app/guitar/interactive';
-import { PitchClass } from '@/app/utils/guitar/constants';
 import { getNotesForString, getScale } from '@/app/guitar/client-actions';
 import { FretboardAction, FretboardActionType, HighlightedPitchClassesContext, SelectedFretsDispatchContext, SelectedFretsState } from "@/app/guitar/interactive-context";
 
