@@ -7,6 +7,7 @@ import { ScaleIntervalNames, ScaleIntervals, TriadTypesInMajor, TriadTypesInMino
 import { Note, PitchClass, PitchClassStrings, ChordTypes, Chord } from "@/app/utils/guitar/types"
 
 import { useContext } from "react";
+import { Label } from "./common";
 
 
 const ChordCell = ({chord, row, col} : {chord: Chord, row: number, col: number}) => {
@@ -14,7 +15,7 @@ const ChordCell = ({chord, row, col} : {chord: Chord, row: number, col: number})
     const dispatchHighlightedPitchClasses = useContext(HighlightedPitchClassesDispatchContext);
 
     return(
-         <button className="row-start-1 col-span-1"
+         <button className="row-span-1 col-span-1 cursor-pointer"
          style={{ gridColumnStart: col, gridRowStart: row }}
          onClick={ () => {
             dispatchHighlightedPitchClasses({actionType:HighlightedPitchClassesActionType.SET, newState:chord.getPitchClassesWithRoot()});
@@ -35,23 +36,29 @@ export default function ChordPalette() {
     // to refactor based on creation of a new Chord class
     // which will be in charge of handling quality, name, etc
     return(
-        <div className="grid grid-rows-2 grid-cols-12 h-full">
-        {    
-            majorRoots.map((pitch, idx) => (
-                <ChordCell key={`${scaleState.tonic}_major_${idx}`} 
-                    chord={new Chord(pitch, TriadTypesInMajor[idx])}
-                    row={1}
-                    col={getPitchClassesStartingFrom(scaleState.tonic).indexOf(pitch) + 1} />
-            ))
-        }
-        {
-            minorRoots.map((pitch, idx) => (
-                <ChordCell key={`${scaleState.tonic}_minor_${idx}`} 
-                    chord={new Chord(pitch, TriadTypesInMinor[idx])}
-                    row={2}
-                    col={getPitchClassesStartingFrom(scaleState.tonic).indexOf(pitch) + 1} />
-            ))
-        }
+        <div className="flex flex-row flex-nowrap h-full">
+            <div className="w-1/8 flex-none align-middle text-base/tight flex flex-col">
+                <Label text="Major Chords"/>
+                <Label text="Minor Chords"/>
+            </div>
+            <div className="w-7/8 flex-none grid grid-rows-2 grid-cols-12">
+            {    
+                majorRoots.map((pitch, idx) => (
+                    <ChordCell key={`${scaleState.tonic}_major_${idx}`} 
+                        chord={new Chord(pitch, TriadTypesInMajor[idx])}
+                        row={1}
+                        col={getPitchClassesStartingFrom(scaleState.tonic).indexOf(pitch) + 1} />
+                ))
+            }
+            {
+                minorRoots.map((pitch, idx) => (
+                    <ChordCell key={`${scaleState.tonic}_minor_${idx}`} 
+                        chord={new Chord(pitch, TriadTypesInMinor[idx])}
+                        row={2}
+                        col={getPitchClassesStartingFrom(scaleState.tonic).indexOf(pitch) + 1} />
+                ))
+            }
+            </div>
         </div>
     )
 }

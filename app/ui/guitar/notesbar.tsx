@@ -5,11 +5,11 @@ import { PitchClass, PitchClassStrings } from "@/app/utils/guitar/types"
 
 import clsx from 'clsx';
 // import { getKey } from '@/app/guitar/actions';
-import { getScale, getPitchClassesStartingFrom, getChordPitchClasses } from '@/app/guitar/client-actions';
+import { getScale, getPitchClassesStartingFrom, getChordPitchClasses, getPitchClassesStartingFromExcludingSelf } from '@/app/guitar/client-actions';
 
 import { SelectedScaleContext } from '@/app/guitar/interactive';
 import { HighlightedPitchClassesActionType, HighlightedPitchClassesContext, HighlightedPitchClassesDispatchContext } from '@/app/guitar/interactive-context';
-
+import { Label } from './common';
 
 const NoteComponent = ({pitchClass: note, id, disabled = false} : {pitchClass: PitchClass, id:number, disabled?:boolean}) => {
     const {scaleId: scaleState, setScaleId: setScaleState} = useContext(SelectedScaleContext);
@@ -50,8 +50,8 @@ export function SelectableNotesBar() {
     return(
         <div className='flex flex-row gap-2 size-full place-items-stretch'>
             {
-                PitchClassStrings.map((pitch, idx) => (
-                    <button key={pitch} onClick={() => {
+                getPitchClassesStartingFromExcludingSelf(scaleState.tonic).map((pitch, idx) => (
+                    <button key={`${idx}_${pitch}`} onClick={() => {
                         setScaleState({"tonic": idx});
                         dispatchHighlightedPitchClasses({actionType:HighlightedPitchClassesActionType.SET, newState:getChordPitchClasses(idx, "MAJOR_TRIAD")})
                     }} className={clsx(
@@ -71,18 +71,29 @@ export function KeySelectionBar() {
     const {scaleId: scaleState, setScaleId: setScaleState} = useContext(SelectedScaleContext);
 
     return(
-        <div className='flex flex-row size-full justify-evenly'>
+        <div className='flex flex-row size-full justify-evenly' role="radiogroup">
+            <div className="w-1/8 flex-none h-full">
+                <Label text="Key"/>
+            </div>
             {
-                PitchClassStrings.map((pitch, idx) => (
-                    <button key={pitch} onClick={() => {
-                        setScaleState({"tonic": idx});
-                    }} className={clsx(
-                        "cursor-pointer flex-1 text-xl select-none",
-                        {
-                            "bg-blue-500" : scaleState.tonic === idx,
-                            "bg-gray-400 text-gray-800" : scaleState.tonic !== idx
-                        }
-                    )}>{pitch}</button>
+                getPitchClassesStartingFromExcludingSelf(PitchClass.C).map((pitch, idx) => (
+                    <button key={`${idx}_${pitch}`} 
+                    role="radio"
+                    onClick={() => {
+                        setScaleState({"tonic": pitch});
+                    }}
+                    aria-selected={scaleState.tonic === pitch} 
+                    className={clsx(
+                        "cursor-pointer flex-1 text-xl select-none transition-colors duration-300 \
+                        z-0 focus:z-1 focus:outline-4 focus:outline-offset-2 \
+                        bg-gray-400 not-aria-selected:text-gray-800 \
+                        hover:text-white \
+                         focus:outline-blue-400 aria-selected:bg-blue-500",
+                        // {
+                        //     "bg-blue-500" : scaleState.tonic === pitch,
+                        //     "bg-gray-400 text-gray-800" : scaleState.tonic !== pitch
+                        // }
+                    )}>{PitchClassStrings[pitch]}</button>
                 ))
             }
         </div>
@@ -97,14 +108,14 @@ export function ScaleDisplayBar({scaleName} : {scaleName : keyof typeof ScaleInt
     const scalePitches = getScale(scaleState.tonic, scaleName)
     
     return(
-        <div className='flex flex-row text-center items-center'>
-            <h4 className="w-1/8 flex-none align-middle text-base/tight">
-                {scaleName.replace("_", " ")}
-            </h4>
+        <div className='flex flex-row items-stretch text-center'>
+            <div className="w-1/8 h-auto">
+                <Label text={scaleName.replace("_", " ")}/>
+            </div>
+            {/* todo... refactor into components for reusability... */}
             {
-                getPitchClassesStartingFrom(scaleState.tonic).map((pitch, idx) => (
+                getPitchClassesStartingFromExcludingSelf(scaleState.tonic).map((pitch, idx) => (
                     <button key={`${idx}_${pitch}`} 
-                    disabled={scaleState.tonic === pitch}
                     onClick={() => {dispatchHighlightedPitchClasses(
                         {actionType:HighlightedPitchClassesActionType.TOGGLE, 
                             toggledPitchClass:pitch})}

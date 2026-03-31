@@ -14,6 +14,10 @@ export function getPitchClassesStartingFrom(start: PitchClass) : PitchClass[] {
     return Array.from({length: 13}, (v, i) => (start + i) % 12)
 }
 
+export function getPitchClassesStartingFromExcludingSelf(start: PitchClass) : PitchClass[] {
+    return Array.from({length: 12}, (v, i) => (start + i) % 12)
+}
+
 export function getNotesForString(firstNote: Note, frets: number = 12) : Note[] {
     return Array.from({length: frets}, (v, i) => createNote(firstNote.value + i))
 }

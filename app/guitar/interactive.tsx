@@ -43,15 +43,15 @@ export default function InteractiveSpace() {
                 <SelectedFretsContext value={chosenFrets}>
                     <SelectedFretsDispatchContext value={dispatchChosenFrets}>
                         <SelectedScaleContext value={{scaleId: selectedScale, setScaleId: setSelectedScale}}>
-                            <div className="grow m-2 gap-6 flex">
-                                <div style={{ position: "relative", display: "block"}} className="flex-2/3 grow-0 outline outline-green-600">
+                            <div className="grow m-2 gap-6 flex flex-col lg:flex-row">
+                                <div style={{ position: "relative", display: "block"}} className="lg:flex-2/3 lg:grow-0 outline outline-green-600">
                                     {/* <Image className="-z-1" alt="homura" src={homura} fill sizes="100vw" style={{
                                         objectFit: 'cover'
                                     }}
                                     ></Image> */}
                                     <Dashboard></Dashboard>
                                 </div>
-                                <div className="flex-1/3 outline outline-blue-500">
+                                <div className="lg:flex-1/3 outline outline-blue-500">
                                     <Fretboard rows={12} tuning={defaultTuning} selectedFrets={chosenFrets}></Fretboard>
                                 </div>
                             </div>

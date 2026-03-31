@@ -1,5 +1,5 @@
 import { SelectedFretsContext } from "@/app/guitar/interactive-context"
-import { SelectableNotesBar , ScaleDisplayBar, KeySelectionBar} from "@/app/ui/guitar/notesbar"
+import { ScaleDisplayBar, KeySelectionBar} from "@/app/ui/guitar/notesbar"
 import ChordPalette from "@/app/ui/guitar/chord-palette"
 import { useContext } from "react"
 
