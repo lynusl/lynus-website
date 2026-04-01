@@ -2,6 +2,11 @@
 import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 import { ScaleIntervals} from '@/app/utils/guitar/constants';
 import { PitchClass, PitchClassStrings } from "@/app/utils/guitar/types"
+import { Button } from "@/components/ui/button"
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@/components/ui/toggle-group"
 
 import clsx from 'clsx';
 // import { getKey } from '@/app/guitar/actions';
@@ -67,38 +72,67 @@ export function SelectableNotesBar() {
     )
 }
 
+
 export function KeySelectionBar() {
     const {scaleId: scaleState, setScaleId: setScaleState} = useContext(SelectedScaleContext);
 
     return(
-        <div className='flex flex-row size-full justify-evenly' role="radiogroup">
+        <div className='flex flex-row size-full justify-evenly h-full'>
             <div className="w-1/8 flex-none h-full">
                 <Label text="Key"/>
             </div>
-            {
+            <ToggleGroup type="single" className='size-full h-full' variant="outline">
+{
                 getPitchClassesStartingFromExcludingSelf(PitchClass.C).map((pitch, idx) => (
-                    <button key={`${idx}_${pitch}`} 
-                    role="radio"
+                    <ToggleGroupItem key={`${idx}_${pitch}`} 
                     onClick={() => {
                         setScaleState({"tonic": pitch});
                     }}
-                    aria-selected={scaleState.tonic === pitch} 
+                    value={pitch.toString()}
                     className={clsx(
-                        "cursor-pointer flex-1 text-xl select-none transition-colors duration-300 \
-                        z-0 focus:z-1 focus:outline-4 focus:outline-offset-2 \
-                        bg-gray-400 not-aria-selected:text-gray-800 \
-                        hover:text-white \
-                         focus:outline-blue-400 aria-selected:bg-blue-500",
-                        // {
-                        //     "bg-blue-500" : scaleState.tonic === pitch,
-                        //     "bg-gray-400 text-gray-800" : scaleState.tonic !== pitch
-                        // }
-                    )}>{PitchClassStrings[pitch]}</button>
-                ))
-            }
+                        "flex-1 text-xl h-full data-[state=on]:bg-blue-500"
+                        )}
+                        >{PitchClassStrings[pitch]}</ToggleGroupItem>
+                    ))
+                }
+            </ToggleGroup>
+            
         </div>
     )
 }
+
+// export function KeySelectionBar() {
+//     const {scaleId: scaleState, setScaleId: setScaleState} = useContext(SelectedScaleContext);
+
+//     return(
+//         <div className='flex flex-row size-full justify-evenly' role="radiogroup">
+//             <div className="w-1/8 flex-none h-full">
+//                 <Label text="Key"/>
+//             </div>
+//             {
+//                 getPitchClassesStartingFromExcludingSelf(PitchClass.C).map((pitch, idx) => (
+//                     <button key={`${idx}_${pitch}`} 
+//                     role="radio"
+//                     onClick={() => {
+//                         setScaleState({"tonic": pitch});
+//                     }}
+//                     aria-selected={scaleState.tonic === pitch} 
+//                     className={clsx(
+//                         "cursor-pointer flex-1 text-xl select-none transition-colors duration-300 \
+//                         z-0 focus:z-1 focus:outline-4 focus:outline-offset-2 \
+//                         bg-gray-400 not-aria-selected:text-gray-800 \
+//                         hover:text-white \
+//                          focus:outline-blue-400 aria-selected:bg-blue-500",
+//                         // {
+//                         //     "bg-blue-500" : scaleState.tonic === pitch,
+//                         //     "bg-gray-400 text-gray-800" : scaleState.tonic !== pitch
+//                         // }
+//                     )}>{PitchClassStrings[pitch]}</button>
+//                 ))
+//             }
+//         </div>
+//     )
+// }
 
 export function ScaleDisplayBar({scaleName} : {scaleName : keyof typeof ScaleIntervals}) {
     const {scaleId: scaleState} = useContext(SelectedScaleContext);

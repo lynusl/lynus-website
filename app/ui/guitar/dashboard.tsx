@@ -9,7 +9,7 @@ export default function Dashboard() {
 
     return(
         <div className="grow grid grid-cols-5 grid-rows-8 gap-2 p-4 outline h-full">
-            <div className="col-span-5 col-start-1 row-span-1 outline outline-amber-100 flex-col">
+            <div className="col-span-5 col-start-1 row-span-1 flex-col">
                 <KeySelectionBar/>
             </div>
             <div className="col-span-5 col-start-1 row-span-2 row-start-2 outline outline-amber-100 flex-col">

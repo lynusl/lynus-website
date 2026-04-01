@@ -8,6 +8,7 @@ import { Note, PitchClass, PitchClassStrings, ChordTypes, Chord } from "@/app/ut
 
 import { useContext } from "react";
 import { Label } from "./common";
+import { Button } from "@/components/ui/button";
 
 
 const ChordCell = ({chord, row, col} : {chord: Chord, row: number, col: number}) => {
@@ -15,13 +16,13 @@ const ChordCell = ({chord, row, col} : {chord: Chord, row: number, col: number})
     const dispatchHighlightedPitchClasses = useContext(HighlightedPitchClassesDispatchContext);
 
     return(
-         <button className="row-span-1 col-span-1 cursor-pointer"
+         <Button className="row-span-1 col-span-1 cursor-pointer text-xl h-full" variant="ghost"
          style={{ gridColumnStart: col, gridRowStart: row }}
          onClick={ () => {
             dispatchHighlightedPitchClasses({actionType:HighlightedPitchClassesActionType.SET, newState:chord.getPitchClassesWithRoot()});
          } }>
             {chord.getChordSymbol()}
-        </button>
+        </Button>
     )
 }
 
